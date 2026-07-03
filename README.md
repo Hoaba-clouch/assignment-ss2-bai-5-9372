@@ -1,55 +1,60 @@
-# HNKS25CNTT1_FastAPI_Session01_Ex01 - Quản lý sản phẩm
+# HNKS25CNTT1_FastAPI_Session01_Ex01
 
 ## Giới thiệu
+Bài tập này yêu cầu xây dựng một ứng dụng API sử dụng FastAPI để cấu hình routing cho các endpoint quản lý tài nguyên. Mục tiêu là tạo ra các API endpoint rõ ràng, dễ hiểu, sử dụng đúng HTTP method và được tổ chức theo nhóm tài nguyên.
 
-Bài tập này nhằm mục đích xây dựng một hệ thống API routing cơ bản bằng FastAPI, tập trung vào việc tạo các endpoint rõ ràng, sử dụng đúng HTTP methods và tổ chức theo nhóm tài nguyên. Chủ đề được chọn là **Quản lý sản phẩm**.
+## Chủ đề API
+**Quản lý sản phẩm**
 
-Hệ thống minh họa cách tạo các endpoint cho các hành động CRUD (Create, Read, Update, Delete) cơ bản, cùng với các endpoint để xem thống kê và các tính năng mở rộng khác. Dữ liệu được sử dụng là dữ liệu giả lập trong bộ nhớ để đơn giản hóa, không yêu cầu kết nối cơ sở dữ liệu hoặc sử dụng Path/Query Parameters hay Request Body trong giai đoạn này.
+## Bảng thiết kế Routing
+Dưới đây là danh sách các endpoint được thiết kế cho hệ thống quản lý sản phẩm, bao gồm các chức năng cơ bản và các chức năng mở rộng.
 
-## Chức năng đã làm
+| Method | Endpoint               | Mục đích                                           |
+| :----- | :--------------------- | :------------------------------------------------- |
+| GET    | `/products`            | Lấy danh sách tất cả sản phẩm                      |
+| GET    | `/products/detail`     | Xem chi tiết của một sản phẩm bất kỳ (ví dụ: sản phẩm đầu tiên) |
+| POST   | `/products`            | Thêm một sản phẩm mới (chỉ trả về thông báo thành công) |
+| PUT    | `/products/update`     | Cập nhật thông tin của một sản phẩm (chỉ trả về thông báo thành công) |
+| DELETE | `/products/delete`     | Xóa một sản phẩm (chỉ trả về thông báo thành công) |
+| GET    | `/products/statistics` | Xem thống kê tổng quan về sản phẩm                 |
+| **Mở rộng** |                        |                                                    |
+| GET    | `/products/categories` | Lấy danh sách các danh mục sản phẩm                |
+| GET    | `/products/low_stock`  | Xem danh sách sản phẩm có số lượng tồn kho thấp     |
 
-API được thiết kế với các endpoint sau:
-
-### Chủ đề API đã chọn: Quản lý sản phẩm
-
-### Bảng thiết kế routing:
-
-| Method   | Endpoint               | Mục đích                                                               |
-| :------- | :--------------------- | :--------------------------------------------------------------------- |
-| `GET`    | `/products`            | Lấy danh sách tất cả các sản phẩm hiện có.                               |
-| `GET`    | `/products/detail`     | Xem chi tiết một sản phẩm cụ thể (hiện tại là sản phẩm đầu tiên).      |
-| `POST`   | `/products`            | Thêm một sản phẩm mới vào hệ thống (thêm sản phẩm giả định).           |
-| `PUT`    | `/products/update`     | Cập nhật thông tin của một sản phẩm hiện có (cập nhật sản phẩm đầu tiên). |
-| `DELETE` | `/products/delete`     | Xóa một sản phẩm khỏi hệ thống (xóa sản phẩm cuối cùng).               |
-| `GET`    | `/products/statistics` | Xem thống kê tổng quan về các sản phẩm (số lượng, giá trị tồn kho, phân loại). |
-| `GET`    | `/products/low-stock`  | Xem danh sách các sản phẩm có số lượng tồn kho thấp (dưới 20 đơn vị). |
-| `GET`    | `/products/popular`    | Xem danh sách các sản phẩm được coi là phổ biến (danh sách giả định). |
+## Các chức năng đã làm
+*   **Xem danh sách sản phẩm**: Endpoint `/products` (GET).
+*   **Xem chi tiết sản phẩm**: Endpoint `/products/detail` (GET).
+*   **Thêm sản phẩm mới**: Endpoint `/products` (POST).
+*   **Cập nhật thông tin sản phẩm**: Endpoint `/products/update` (PUT).
+*   **Xóa sản phẩm**: Endpoint `/products/delete` (DELETE).
+*   **Xem thống kê sản phẩm**: Endpoint `/products/statistics` (GET).
+*   **Xem danh mục sản phẩm (mở rộng)**: Endpoint `/products/categories` (GET).
+*   **Xem sản phẩm tồn kho thấp (mở rộng)**: Endpoint `/products/low_stock` (GET).
 
 ## Hướng dẫn chạy chương trình
+Để chạy ứng dụng FastAPI này, bạn cần cài đặt `FastAPI` và `uvicorn`.
 
-Để chạy ứng dụng FastAPI này, bạn cần cài đặt Python và FastAPI cùng với Uvicorn.
-
-1.  **Cài đặt các thư viện cần thiết:**
-    Mở terminal hoặc command prompt và chạy lệnh sau:
+1.  **Cài đặt các thư viện cần thiết**:
     ```bash
     pip install fastapi uvicorn
     ```
 
-2.  **Lưu mã nguồn:**
-    Lưu nội dung của file `main.py` vào một file có tên `main.py` trong thư mục làm việc của bạn.
+2.  **Lưu mã nguồn**:
+    Lưu nội dung của file `main.py` vào một file có tên `main.py`.
 
-3.  **Chạy ứng dụng:**
-    Từ thư mục chứa file `main.py`, chạy lệnh sau:
+3.  **Chạy ứng dụng**:
+    Mở terminal hoặc command prompt, điều hướng đến thư mục chứa file `main.py` và chạy lệnh sau:
     ```bash
     uvicorn main:app --reload
     ```
-    *   `main`: Tên module Python (file `main.py`).
-    *   `app`: Tên đối tượng FastAPI trong `main.py`.
-    *   `--reload`: Tùy chọn để tự động tải lại server khi có thay đổi trong mã nguồn.
+    *   `main`: Tên của file Python (main.py).
+    *   `app`: Tên của đối tượng FastAPI trong file đó.
+    *   `--reload`: Tùy chọn này giúp ứng dụng tự động tải lại khi bạn thay đổi mã nguồn.
 
-4.  **Kiểm tra API:**
-    Sau khi server chạy, bạn có thể truy cập các endpoint thông qua trình duyệt hoặc công cụ như Postman/Insomnia:
-    *   **Trang tài liệu Swagger UI:** Mở trình duyệt và truy cập: `http://127.0.0.1:8000/docs`
-    *   **Trang tài liệu ReDoc:** Mở trình duyệt và truy cập: `http://127.0.0.1:8000/redoc`
+4.  **Truy cập API**:
+    Ứng dụng sẽ chạy mặc định trên `http://127.0.0.1:8000`.
+    Bạn có thể kiểm tra các endpoint bằng cách sử dụng các công cụ như Postman, curl, hoặc truy cập trực tiếp qua trình duyệt:
+    *   **Tài liệu Swagger UI**: `http://127.0.0.1:8000/docs`
+    *   **Tài liệu ReDoc**: `http://127.0.0.1:8000/redoc`
 
-    Bạn có thể thử gọi các endpoint được liệt kê trong bảng thiết kế ở trên từ Swagger UI.
+    Bạn có thể thử các endpoint đã định nghĩa trong bảng thiết kế routing ở trên.
